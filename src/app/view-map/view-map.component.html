@@ -1,0 +1,59 @@
+<div class="floorplan-button-container" *ngIf="showButton && shouldShowMap()">
+  <button class="floorplan-button" type="button" (click)="openFloorplan()" aria-label="View floor map">
+    <span class="button-icon-box" aria-hidden="true">
+      <svg class="button-icon" viewBox="0 0 24 24">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+        <circle cx="12" cy="10" r="3"></circle>
+      </svg>
+    </span>
+    <span class="label">View map</span>
+  </button>
+</div>
+
+<!-- Modal -->
+<div
+  #modalRoot
+  class="floorplan-modal"
+  *ngIf="showModal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-title"
+  (click)="handleOverlayClick()"
+>
+  <div class="floorplan-modal-content" role="button" tabindex="0" (click)="$event.stopPropagation()">
+    <header class="modal-header">
+      <h2 id="modal-title">
+        {{ isGuideView ? 'How to Read a Call Number' : 'Library Floor Map' }}
+      </h2>
+      <button class="close-button" aria-label="Close floor map" (click)="closeFloorplan()">×</button>
+    </header>
+    <div class="image-container">
+      <img
+        *ngIf="activeImage as img"
+        [src]="img"
+        [alt]="isGuideView ? 'How to Read a Call Number' : 'Floorplan of current section'"
+        [ngStyle]="{
+          transform:
+            'scale(' +
+            zoomLevel +
+            ') translate(' +
+            imgPosition.x +
+            'px, ' +
+            imgPosition.y +
+            'px)'
+        }"
+        (mousedown)="startDrag($event)"
+        (mousemove)="onDrag($event)"
+        (mouseup)="stopDrag()"
+        (mouseleave)="stopDrag()"
+      />
+    </div>
+
+    <div class="controls">
+      <button class="zoom-button" type="button" (click)="zoomIn()" [disabled]="zoomLevel >= maxZoom">+</button>
+      <button class="zoom-button" type="button" (click)="zoomOut()" [disabled]="zoomLevel <= minZoom">−</button>
+      <button class="floorplan-toggle-button" type="button" (click)="toggleView()">Switch View</button>
+      <button class="help-button" type="button" (click)="showGuide()">How to Read a Call Number</button>
+    </div>
+  </div>
+</div>

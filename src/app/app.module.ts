@@ -1,18 +1,20 @@
-import {ApplicationRef, DoBootstrap, Injector, NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {AppComponent} from './app.component';
-import {createCustomElement, NgElementConstructor} from "@angular/elements";
-import {Router} from "@angular/router";
-import {selectorComponentMap} from "./custom1-module/customComponentMappings";
-import {TranslateModule} from "@ngx-translate/core";
+import {
+  ApplicationRef,
+  DoBootstrap,
+  Injector,
+  NgModule
+} from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { createCustomElement, NgElementConstructor } from '@angular/elements';
+import { Router } from '@angular/router';
+import { selectorComponentMap } from "./custom1-module/customComponentMappings";
+import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { AutoAssetSrcDirective } from './services/auto-asset-src.directive';
-import {SHELL_ROUTER} from "./injection-tokens";
 
-
-
-export const AppModule = ({providers, shellRouter}: {providers:any, shellRouter: Router}) => {
-   @NgModule({
+export const AppModule = ({ providers }: { providers: any }) => {
+  @NgModule({
     declarations: [
       AppComponent,
       AutoAssetSrcDirective
@@ -23,31 +25,31 @@ export const AppModule = ({providers, shellRouter}: {providers:any, shellRouter:
       CommonModule,
       TranslateModule.forRoot({})
     ],
-    providers: [...providers, {provide: SHELL_ROUTER, useValue: shellRouter}],
+    providers: providers,
     bootstrap: []
   })
-  class AppModule implements DoBootstrap{
-    private webComponentSelectorMap = new Map<string,  NgElementConstructor<unknown>>();
+  class AppModule implements DoBootstrap {
+    private webComponentSelectorMap =
+      new Map<string, NgElementConstructor<unknown>>();
 
     constructor(private injector: Injector, private router: Router) {
-      router.dispose(); //this prevents the router from being initialized and interfering with the shell app router
+      // Prevent router collision with Primo shell
+      router.dispose();
     }
 
     ngDoBootstrap(appRef: ApplicationRef) {
-      for (const [key, value] of selectorComponentMap) {
-        const customElement = createCustomElement(value, {injector: this.injector});
-        this.webComponentSelectorMap.set(key, customElement);
+      for (const [selector, component] of selectorComponentMap) {
+        const element = createCustomElement(component, {
+          injector: this.injector
+        });
+
+        this.webComponentSelectorMap.set(selector, element);
       }
     }
-
-    /**
-     * Use componentMapping, selectorComponentMap
-     * @param componentName
-     */
-    public getComponentRef(componentName:string) {
+    public getComponentRef(componentName: string) {
       return this.webComponentSelectorMap.get(componentName);
     }
   }
-  return AppModule
-}
 
+  return AppModule;
+};
