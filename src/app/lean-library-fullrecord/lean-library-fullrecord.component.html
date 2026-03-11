@@ -1,4 +1,15 @@
-<div class="container">
-    Would you like Healey Library resources to pop up in your browser as you search?
-    Download <a href="https://umb.libguides.com/leanlibrary">Lean Library</a> and try it out!
+<div class="report-problem-row" *ngIf="showWidget && reportUrl">
+  <a
+    id="referrerLink"
+    aria-label="Report an Issue"
+    class="report-button-full-display"
+    [href]="reportUrl"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    {{ reportText }}
+    <svg width="100%" height="100%" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M6 26V8C6 7.45 6.19583 6.97917 6.5875 6.5875C6.97917 6.19583 7.45 6 8 6H24C24.55 6 25.0208 6.19583 25.4125 6.5875C25.8042 6.97917 26 7.45 26 8V20C26 20.55 25.8042 21.0208 25.4125 21.4125C25.0208 21.8042 24.55 22 24 22H10L6 26ZM9.15 20H24V8H8V21.125L9.15 20Z"></path>
+    </svg>
+  </a>
 </div>

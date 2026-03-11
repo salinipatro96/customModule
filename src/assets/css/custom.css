@@ -1,0 +1,16 @@
+/* removing the icon for the natural language search */
+mat-icon.mat-icon.notranslate.fill-white.mat-icon-no-color.ng-star-inserted {
+  display: none;
+}
+
+/* switching Natural language search and Advanced search */
+div .flex-row.ng-star-inserted {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+/* chatbot location */
+#lcs_slide_out-25704 {
+  top: 50% !important;
+  font-size: 20px;
+}

@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'custom-module';
+
   public getTitle(){
     return this.title;
   }

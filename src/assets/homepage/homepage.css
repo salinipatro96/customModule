@@ -185,10 +185,42 @@
         background-color: var(--sys-inverse-on-surface);
         gap: 1.5rem;
 
+
         @include mixing.respond-to('small', 'xsmall') {
           padding: 1rem;
           gap: 1rem;
         }
+      }
+
+      .about-side {
+          flex: 3 1 0%;
+          border-radius: .625rem;
+          padding: 2rem;
+          background-color: var(--sys-inverse-on-surface);
+          gap: 1.5rem;
+          margin-left: .2rem;
+          margin-bottom: .2rem;
+
+          @include mixing.respond-to('small', 'xsmall') {
+            border-radius: .625rem .625rem 0 0;
+            width: 100%;
+          }
+        }
+
+      .about-main {
+        flex: 7 1 0%;
+        padding: 2rem;
+        border-radius: .625rem;
+        background-color: var(--sys-inverse-on-surface);
+        gap: 1.5rem;
+        margin-left: .2rem;
+        margin-bottom: .2rem;
+
+        @include mixing.respond-to('small', 'xsmall') {
+            border-radius: .625rem .625rem 0 0;
+            width: 100%;
+          }
+        }    
 
         .about-text-title {
           font-weight: vars.$bold;
@@ -238,6 +270,8 @@
         }
       }
 
+
+
       .about-image {
         img {
           width: auto;
@@ -255,5 +289,8 @@
   }
 
 }
+
+
+
 
 

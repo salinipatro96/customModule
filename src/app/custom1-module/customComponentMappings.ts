@@ -1,11 +1,21 @@
 import { LeanLibraryFullrecordComponent } from "../lean-library-fullrecord/lean-library-fullrecord.component";
-import { LeanLibraryComponent } from "../lean-library/lean-library.component";
+import { NoSearchResultComponent } from "../no-search-result/no-search-result.component";
 import { ResearchAssistantComponent } from "../research-assistant/research-assistant.component";
+import { SearchErrorMessageComponent } from "../search-error-message/search-error-message.component";
 import { ViewMapButtonComponent } from "./view-map-button/view-map-button.component";
 
 export const selectorComponentMap = new Map<string, any>([
-  ["nde-search-results-pagination-after", LeanLibraryComponent],
-  ["nde-full-display-container-after", LeanLibraryFullrecordComponent],
-  ["nde-top-bar-after", ResearchAssistantComponent],
+  ["nde-full-display-service-container-before", LeanLibraryFullrecordComponent],
+  ["nde-no-search-result-after", NoSearchResultComponent],
+  ["nde-no-search-result", NoSearchResultComponent],
+  ["nde-search-no-result-after", NoSearchResultComponent],
+  ["nde-search-no-results-after", NoSearchResultComponent],
+  ["nde-no-records-after", NoSearchResultComponent],
+  ["nde-no-records-found-after", NoSearchResultComponent],
+  ["nde-no-records-found", NoSearchResultComponent],
+  ["nde-search-error-message-after", SearchErrorMessageComponent],
+  ["nde-search-error-message", SearchErrorMessageComponent],
+  ["nde-search-error-after", SearchErrorMessageComponent],
+  ["nde-footer", ResearchAssistantComponent],
   ['nde-location-items-container-after', ViewMapButtonComponent]
 ]);
