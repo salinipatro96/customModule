@@ -1,0 +1,48 @@
+.no-results-card {
+  display: block;
+  margin: 0;
+  padding: 1.5rem;
+  border: 1px solid #d7dde3;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: #1f2937;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+.card-header h2 {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.card-content p {
+  margin: 0 0 1rem;
+}
+
+.section-label {
+  font-weight: 700;
+}
+
+.card-content ul {
+  margin: 0 0 1rem 1.25rem;
+  padding: 0;
+}
+
+.card-content li {
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.card-content a {
+  color: #005b96;
+  text-decoration: none;
+}
+
+.card-content a:hover {
+  text-decoration: underline;
+}
+
+.card-content img {
+  vertical-align: middle;
+  margin-right: 0.35rem;
+}

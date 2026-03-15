@@ -1,0 +1,73 @@
+<section class="no-results-card">
+  <header class="card-header">
+    <h2>No Results Found</h2>
+  </header>
+
+  <div class="card-content">
+    <p>
+      There are no results matching your search:
+      <b><i>{{ searchTerm }}</i></b>
+    </p>
+
+    <p class="section-label">Suggestions:</p>
+
+    <ul>
+      <li>
+        <a [href]="includeOutsideSubscriptionsLink">
+          <b>
+            {{
+              isJournal()
+                ? 'Try UMBrella Search.'
+                : "Try including results outside the library's subscriptions (InterLibrary Loan may be available)"
+            }}
+          </b>
+        </a>
+      </li>
+      <li>
+        Try a different search scope:
+        <a [href]="healeyResourcesLink"><b>Healey Library Resources</b></a>,
+        <a [href]="courseReservesLink"><b>Course Reserves</b></a>,
+        <a [href]="worldCatScopeLink"><b>WorldCat</b></a>
+      </li>
+      <li *ngIf="isSearch() || isJournal()">
+        Try <b><a [href]="newspaperSearchLink">Newspaper Search</a></b> if you are looking for newspaper articles.
+      </li>
+      <li>Try different keywords</li>
+      <li>
+        Try your search in
+        <b>
+          <a [href]="googleScholarLink" target="_blank" rel="noopener noreferrer">
+            Google Scholar
+          </a>
+        </b>
+      </li>
+      <li>
+        Try your search in
+        <b>
+          <a [href]="worldCatLink" target="_blank" rel="noopener noreferrer">
+            <img
+              src="/discovery/custom/01MA_UMB-01MA_UMB/img/WorldCat_Logo.png"
+              alt="WorldCat"
+              height="22"
+              width="22"
+            />
+            WorldCat
+          </a>
+        </b>
+      </li>
+    </ul>
+
+    <p class="section-label">Still having trouble getting the results you want? Try the following:</p>
+
+    <ul>
+      <li>
+        Request through
+        <b><a href="https://www.umb.edu/library/interlibrary_loan" target="_blank" rel="noopener noreferrer">InterLibrary Loan (ILLiad)</a></b>
+      </li>
+      <li>
+        <b><a href="http://umb.libanswers.com/" target="_blank" rel="noopener noreferrer">Ask a Librarian</a></b>
+        for further assistance
+      </li>
+    </ul>
+  </div>
+</section>
