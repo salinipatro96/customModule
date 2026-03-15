@@ -1,0 +1,32 @@
+.layout-align-center-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.bar.alert-bar {
+  width: 100%;
+  border-radius: 0;
+  background-color: #dce3ee;
+  border-top: 1px solid #c4ccd8;
+  border-bottom: 1px solid #c4ccd8;
+  padding: 12px 16px;
+  text-align: center;
+}
+
+.bar-text {
+  color: #1f2937;
+  font-size: 0.95rem;
+}
+
+.bar-text a {
+  color: #005b96;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.bar-text a:hover,
+.bar-text a:focus {
+  text-decoration: underline;
+}

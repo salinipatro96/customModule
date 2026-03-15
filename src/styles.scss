@@ -2,8 +2,8 @@
 @use '@angular/material' as mat;
 @include mat.core();
 
-$primary: mat.m2-define-palette(mat.$m2-indigo-palette);
-$accent: mat.m2-define-palette(mat.$m2-pink-palette, A200, A100, A400);
+$primary: mat.m2-define-palette(mat.$m2-blue-palette, 700, 300, 900);
+$accent: mat.m2-define-palette(mat.$m2-light-blue-palette, 600, 300, 800);
 $theme: mat.m2-define-light-theme((
   color: (
     primary: $primary,
@@ -12,6 +12,32 @@ $theme: mat.m2-define-light-theme((
 ));
 
 @include mat.all-component-themes($theme);
+
+html,
+body,
+.custom-nde-theme {
+  --mdc-circular-progress-active-indicator-color: #005b96;
+  --mat-progress-spinner-active-indicator-color: #005b96;
+  --mdc-linear-progress-active-indicator-color: #005b96;
+  --mdc-linear-progress-track-color: #dce3ee;
+  --mat-stepper-header-selected-state-icon-background-color: #005b96;
+  --mat-stepper-header-done-state-icon-background-color: #005b96;
+  --mat-option-selected-state-label-text-color: #005b96;
+}
+
+.mat-mdc-progress-spinner circle,
+.mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle,
+.mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic,
+mat-spinner circle,
+mat-progress-spinner circle {
+  stroke: #005b96 !important;
+}
+
+.mat-mdc-progress-bar,
+.mdc-linear-progress {
+  --mdc-linear-progress-active-indicator-color: #005b96;
+  --mdc-linear-progress-track-color: #dce3ee;
+}
 prm-search-result-availability-line-after {
   display: block !important;
 }

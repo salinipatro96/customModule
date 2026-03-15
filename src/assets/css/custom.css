@@ -1,3 +1,7 @@
+:root {
+  --sys-primary: #005b96;
+}
+
 /* removing the icon for the natural language search */
 mat-icon.mat-icon.notranslate.fill-white.mat-icon-no-color.ng-star-inserted {
   display: none;
@@ -88,4 +92,52 @@ h2[data-qa="account-overview-opening"] a[href*="illiad"]:focus {
   border-color: #00446f !important;
   color: #00446f !important;
   text-decoration: none !important;
+}
+
+/* Blue-tint generic NDE skeleton and placeholder states */
+:root {
+  --umb-skeleton-base: #dce7f3;
+  --umb-skeleton-highlight: #edf4fb;
+  --umb-skeleton-border: #c3d5e8;
+}
+
+[class*="skeleton"],
+[class*="Skeleton"],
+[class*="placeholder"],
+[class*="Placeholder"],
+[class*="shimmer"],
+[class*="Shimmer"],
+[aria-busy="true"] [class*="card"],
+[aria-busy="true"] [class*="tile"] {
+  background-color: var(--umb-skeleton-base) !important;
+  border-color: var(--umb-skeleton-border) !important;
+  background-image: linear-gradient(
+    90deg,
+    var(--umb-skeleton-base) 0%,
+    var(--umb-skeleton-highlight) 50%,
+    var(--umb-skeleton-base) 100%
+  ) !important;
+  background-size: 200% 100% !important;
+}
+
+[class*="skeleton"]::before,
+[class*="Skeleton"]::before,
+[class*="placeholder"]::before,
+[class*="Placeholder"]::before,
+[class*="shimmer"]::before,
+[class*="Shimmer"]::before {
+  background: linear-gradient(
+    90deg,
+    rgba(220, 231, 243, 0) 0%,
+    rgba(237, 244, 251, 0.95) 50%,
+    rgba(220, 231, 243, 0) 100%
+  ) !important;
+}
+
+[class*="skeleton"] svg,
+[class*="Skeleton"] svg,
+[class*="placeholder"] svg,
+[class*="Placeholder"] svg {
+  fill: var(--umb-skeleton-base) !important;
+  stroke: var(--umb-skeleton-border) !important;
 }
