@@ -11,13 +11,14 @@ import { CommonModule } from '@angular/common';
 export class ResearchAssistantComponent implements OnInit, OnDestroy {
   private mutationObserver: MutationObserver | null = null;
   private readonly targetUrl = 'https://umb.libguides.com/c.php?g=1479566';
-  private readonly aiModeIconStyleId = 'umb-ai-mode-icon-style';
+  private readonly customUiStyleId = 'umb-custom-ui-style';
 
   constructor() {}
 
   ngOnInit(): void {
-    this.ensureAiModeIconStyles();
+    this.ensureCustomUiStyles();
     this.decorateAiModeButton();
+    this.decorateIliadAccountLink();
     this.enhanceLandingPageSearchInput();
     this.setupMutationObserver();
   }
@@ -32,12 +33,11 @@ export class ResearchAssistantComponent implements OnInit, OnDestroy {
     this.mutationObserver = new MutationObserver(() => {
       this.overrideResearchAssistantLinks();
       this.decorateAiModeButton();
+      this.decorateIliadAccountLink();
       this.enhanceLandingPageSearchInput();
     });
 
-    const targetNode = document.querySelector('header, nav, prm-topbar') || document.body;
-
-    this.mutationObserver.observe(targetNode, {
+    this.mutationObserver.observe(document.body, {
       childList: true,
       subtree: true
 });
@@ -181,13 +181,39 @@ export class ResearchAssistantComponent implements OnInit, OnDestroy {
     return iconIndex !== -1 && labelIndex !== -1 && iconIndex < labelIndex;
   }
 
-  private ensureAiModeIconStyles(): void {
-    if (document.getElementById(this.aiModeIconStyleId)) {
+  private decorateIliadAccountLink(): void {
+    const accountLinks = Array.from(
+      document.querySelectorAll('h2[data-qa="account-overview-opening"] a[href*="illiad"], h2.overview-opening a[href*="illiad"]')
+    ) as HTMLAnchorElement[];
+
+    accountLinks.forEach((link) => {
+      link.classList.add('umb-illiad-button');
+      link.setAttribute('role', 'button');
+      link.style.display = 'inline-flex';
+      link.style.alignItems = 'center';
+      link.style.justifyContent = 'center';
+      link.style.marginLeft = '0.28rem';
+      link.style.padding = '0.12rem 0.62rem';
+      link.style.border = '1px solid #005b96';
+      link.style.borderRadius = '999px';
+      link.style.background = '#eef6fc';
+      link.style.color = '#005b96';
+      link.style.fontWeight = '700';
+      link.style.fontSize = '0.88em';
+      link.style.lineHeight = '1.1';
+      link.style.textDecoration = 'none';
+      link.style.verticalAlign = 'middle';
+      link.style.transform = 'translateY(-0.03em)';
+    });
+  }
+
+  private ensureCustomUiStyles(): void {
+    if (document.getElementById(this.customUiStyleId)) {
       return;
     }
 
     const style = document.createElement('style');
-    style.id = this.aiModeIconStyleId;
+    style.id = this.customUiStyleId;
     style.textContent = `
       .umb-ai-mode-icon {
         display: inline-flex;
@@ -206,6 +232,34 @@ export class ResearchAssistantComponent implements OnInit, OnDestroy {
         stroke: #000000;
         stroke-width: 0.7;
         paint-order: stroke fill;
+      }
+
+      .umb-illiad-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 0.28rem;
+        padding: 0.12rem 0.62rem;
+        border: 1px solid #005b96;
+        border-radius: 999px;
+        background: #eef6fc;
+        color: #005b96 !important;
+        font-weight: 700;
+        font-size: 0.88em;
+        line-height: 1.1;
+        text-decoration: none !important;
+        vertical-align: middle;
+        transform: translateY(-0.03em);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+        transition: background-color 0.2s ease, border-color 0.2s ease;
+      }
+
+      .umb-illiad-button:hover,
+      .umb-illiad-button:focus {
+        background: #dcecf8;
+        border-color: #00446f;
+        color: #00446f !important;
+        text-decoration: none !important;
       }
     `;
 
