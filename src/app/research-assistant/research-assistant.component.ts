@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { assetBaseUrl } from '../state/asset-base.generated';
 
 @Component({
   selector: 'app-research-assistant',
@@ -12,14 +13,15 @@ export class ResearchAssistantComponent implements OnInit, OnDestroy {
   private mutationObserver: MutationObserver | null = null;
   private readonly targetUrl = 'https://umb.libguides.com/c.php?g=1479566';
   private readonly customUiStyleId = 'umb-custom-ui-style';
+  private readonly aiModeIconSymbolId = 'AiModeSparkles';
 
   constructor() {}
 
   ngOnInit(): void {
     this.ensureCustomUiStyles();
+    this.overrideResearchAssistantLinks();
     this.decorateAiModeButton();
     this.decorateIliadAccountLink();
-    this.enhanceLandingPageSearchInput();
     this.setupMutationObserver();
   }
 
@@ -34,7 +36,6 @@ export class ResearchAssistantComponent implements OnInit, OnDestroy {
       this.overrideResearchAssistantLinks();
       this.decorateAiModeButton();
       this.decorateIliadAccountLink();
-      this.enhanceLandingPageSearchInput();
     });
 
     this.mutationObserver.observe(document.body, {
@@ -105,13 +106,17 @@ export class ResearchAssistantComponent implements OnInit, OnDestroy {
       const icon = document.createElement('span');
       icon.className = 'umb-ai-mode-icon';
       icon.setAttribute('aria-hidden', 'true');
-      icon.innerHTML = `
-        <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-          <path d="M12 2.8 13.4 7l4.2 1.4-4.2 1.4L12 14l-1.4-4.2L6.4 8.4 10.6 7 12 2.8Z"></path>
-          <path d="M18.5 8.7 19.2 10.8l2.1.7-2.1.7-.7 2.1-.7-2.1-2.1-.7 2.1-.7.7-2.1Z"></path>
-          <path d="M7.2 13.4 8.2 16.3l2.9 1-2.9 1-1 2.9-1-2.9-2.9-1 2.9-1 1-2.9Z"></path>
-        </svg>
-      `;
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('focusable', 'false');
+      svg.setAttribute('aria-hidden', 'true');
+
+      const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+      const spriteHref = `${this.getCustomIconSpriteUrl()}#${this.aiModeIconSymbolId}`;
+      use.setAttribute('href', spriteHref);
+      use.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', spriteHref);
+      svg.appendChild(use);
+      icon.appendChild(svg);
       label.prepend(icon);
     });
   }
@@ -261,70 +266,31 @@ export class ResearchAssistantComponent implements OnInit, OnDestroy {
         color: #00446f !important;
         text-decoration: none !important;
       }
+
     `;
 
     document.head.appendChild(style);
   }
 
-  private enhanceLandingPageSearchInput(): void {
-    const input = document.querySelector(
-      '.landing-page-search-bar-wrapper #main-search-bar'
-    ) as HTMLInputElement | null;
-
-    if (!input || input.dataset['multilineEnhanced'] === 'true') {
-      return;
+  private getCustomIconSpriteUrl(): string {
+    const directAssetBase = assetBaseUrl?.trim();
+    if (directAssetBase) {
+      return `${directAssetBase.replace(/\/+$/, '')}/assets/icons/custom_icons.svg`;
     }
 
-    const container = input.parentElement;
-    if (!container) {
-      return;
+    const assetMatch = Array.from(
+      document.querySelectorAll('link[href], script[src], img[src]')
+    )
+      .map((element) => element.getAttribute('href') || element.getAttribute('src') || '')
+      .find((url) => /\/(?:nde\/)?custom\/[^/]+\/assets\//.test(url));
+
+    if (assetMatch) {
+      const match = assetMatch.match(/^(.*\/assets\/)/);
+      if (match?.[1]) {
+        return `${match[1]}icons/custom_icons.svg`.replace(/([^:]\/)\/+/g, '$1');
+      }
     }
 
-    input.dataset['multilineEnhanced'] = 'true';
-    input.setAttribute('aria-hidden', 'true');
-    input.tabIndex = -1;
-    input.style.position = 'absolute';
-    input.style.opacity = '0';
-    input.style.pointerEvents = 'none';
-    input.style.inset = '0';
-    input.style.zIndex = '-1';
-
-    const textarea = document.createElement('textarea');
-    textarea.className = `${input.className} umb-multiline-search-input`;
-    textarea.id = `${input.id}-multiline`;
-    textarea.rows = 1;
-    textarea.placeholder = input.placeholder;
-    textarea.setAttribute('aria-label', input.getAttribute('aria-label') || 'Search field');
-    textarea.value = input.value;
-
-    const syncToInput = () => {
-      if (input.value === textarea.value) {
-        this.resizeLandingTextarea(textarea);
-        return;
-      }
-
-      input.value = textarea.value;
-      input.dispatchEvent(new Event('input', { bubbles: true }));
-      input.dispatchEvent(new Event('change', { bubbles: true }));
-      this.resizeLandingTextarea(textarea);
-    };
-
-    textarea.addEventListener('input', syncToInput);
-    textarea.addEventListener('focus', () => input.dispatchEvent(new Event('focus', { bubbles: true })));
-    textarea.addEventListener('blur', () => input.dispatchEvent(new Event('blur', { bubbles: true })));
-    input.addEventListener('input', () => {
-      if (textarea.value !== input.value) {
-        textarea.value = input.value;
-        this.resizeLandingTextarea(textarea);
-      }
-    });
-
-    container.insertBefore(textarea, input.nextSibling);
-    this.resizeLandingTextarea(textarea);
-  }
-
-  private resizeLandingTextarea(textarea: HTMLTextAreaElement): void {
-    textarea.style.height = 'auto';
-    textarea.style.height = `${Math.min(textarea.scrollHeight, 160)}px`;
+    return '/nde/custom/01MA_UMB-01MA_UMB/assets/icons/custom_icons.svg';
   }
 }

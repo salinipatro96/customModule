@@ -7,65 +7,11 @@ mat-icon.mat-icon.notranslate.fill-white.mat-icon-no-color.ng-star-inserted {
   display: none;
 }
 
-/* switching Natural language search and Advanced search */
-div .flex-row.ng-star-inserted {
-  display: flex;
-  flex-direction: row-reverse;
-}
-
 /* chatbot location */
 #lcs_slide_out-25704 {
   top: 50% !important;
   font-size: 20px;
 }
-
-/* Allow long home-page search queries to wrap onto multiple lines */
-prm-search-bar textarea,
-prm-search-bar .mdc-text-field__input,
-prm-search-bar input[type="search"],
-prm-search-bar input[type="text"] {
-  white-space: normal !important;
-  overflow-wrap: anywhere !important;
-  word-break: break-word !important;
-  line-height: 1.35 !important;
-}
-
-prm-search-bar textarea {
-  height: auto !important;
-  min-height: 2.75rem !important;
-  resize: none !important;
-  overflow-y: auto !important;
-}
-
-prm-search-bar .mdc-text-field,
-prm-search-bar .mat-mdc-form-field-infix,
-prm-search-bar .mat-mdc-form-field-flex,
-prm-search-bar .mat-mdc-text-field-wrapper {
-  height: auto !important;
-  min-height: 2.75rem !important;
-  align-items: flex-start !important;
-}
-
-.landing-page-search-bar-wrapper .search_box_container {
-  align-items: stretch !important;
-}
-
-.landing-page-search-bar-wrapper .umb-multiline-search-input {
-  width: 100% !important;
-  min-height: 2.75rem !important;
-  max-height: 10rem !important;
-  border: 0 !important;
-  background: transparent !important;
-  color: inherit !important;
-  font: inherit !important;
-  line-height: 1.35 !important;
-  resize: none !important;
-  overflow-y: auto !important;
-  padding: 0.625rem 0 !important;
-  margin: 0 !important;
-  outline: 0 !important;
-}
-
 /* Style the ILLiad link in My Library Account as a button */
 h2[data-qa="account-overview-opening"] a[href*="illiad"] {
   display: inline-flex !important;
@@ -140,4 +86,29 @@ h2[data-qa="account-overview-opening"] a[href*="illiad"]:focus {
 [class*="Placeholder"] svg {
   fill: var(--umb-skeleton-base) !important;
   stroke: var(--umb-skeleton-border) !important;
+}
+
+/* Keep account and resource menus aligned with the native layout */
+.mat-mdc-menu-content,
+.mdc-list,
+[role="menu"],
+[role="menuitem"],
+.brief-record,
+.full-record,
+.resource-menu {
+  text-align: inherit;
+}
+
+/* Landing-page action order: Advanced Search on the left, AI Mode on the right */
+.landing-page-search-bar-wrapper + .flex-row.ng-star-inserted {
+  display: flex !important;
+  flex-direction: row !important;
+}
+
+.landing-page-search-bar-wrapper + .flex-row.ng-star-inserted > [data-qa="advanced_search_button"] {
+  order: 1 !important;
+}
+
+.landing-page-search-bar-wrapper + .flex-row.ng-star-inserted > [data-qa="natural-language-search-button"] {
+  order: 2 !important;
 }

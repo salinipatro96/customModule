@@ -12,16 +12,8 @@
     <p class="section-label">Suggestions:</p>
 
     <ul>
-      <li>
-        <a [href]="includeOutsideSubscriptionsLink">
-          <b>
-            {{
-              isJournal()
-                ? 'Try UMBrella Search.'
-                : "Try including results outside the library's subscriptions (InterLibrary Loan may be available)"
-            }}
-          </b>
-        </a>
+      <li *ngIf="isJournal()">
+        <a [href]="includeOutsideSubscriptionsLink"><b>Try UMBrella Search.</b></a>
       </li>
       <li>
         Try a different search scope:

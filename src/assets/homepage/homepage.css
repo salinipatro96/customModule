@@ -1,6 +1,10 @@
 @use "src/app/styles/nde-variables" as vars;
 @use "src/app/styles/nde-mixing" as mixing;
 
+body {
+  background: #fff;
+}
+
 .main-landing-page {
   width: vars.$responsiveWidth;
   @include vars.set-responsive-width;
@@ -8,9 +12,12 @@
   gap: 5rem;
   //need to delete when the Featured Books will be developed
   margin-block-end: 100px;
+  padding: 2rem 0 3rem;
+  background: #fff;
 
   @include mixing.respond-to('xsmall') {
     width: 100%;
+    padding: 1.25rem 0 2rem;
   }
 
 
@@ -23,7 +30,7 @@
       li {
 
         a {
-          background-color: var(--sys-inverse-on-surface);
+          background-color: #eef4fb;
           display: flex;
           padding: 1rem;
           border: .0625rem solid var(--sys-primary);
@@ -143,7 +150,7 @@
     }
 
     .announcements {
-      background-color: var(--sys-inverse-on-surface);
+      background-color: #eef4fb;
       padding: 1.5rem;
       border-radius: .5rem;
       border: .0625rem solid var(--sys-primary);
@@ -180,9 +187,9 @@
         flex-direction: column-reverse;
       }
 
-      .about-text {
-        padding: 2rem;
-        background-color: var(--sys-inverse-on-surface);
+        .about-text {
+          padding: 2rem;
+        background-color: #eef4fb;
         gap: 1.5rem;
 
 
@@ -196,7 +203,7 @@
           flex: 3 1 0%;
           border-radius: .625rem;
           padding: 2rem;
-          background-color: var(--sys-inverse-on-surface);
+          background-color: #eef4fb;
           gap: 1.5rem;
           margin-left: .2rem;
           margin-bottom: .2rem;
@@ -211,7 +218,7 @@
         flex: 7 1 0%;
         padding: 2rem;
         border-radius: .625rem;
-        background-color: var(--sys-inverse-on-surface);
+        background-color: #eef4fb;
         gap: 1.5rem;
         margin-left: .2rem;
         margin-bottom: .2rem;
@@ -289,8 +296,5 @@
   }
 
 }
-
-
-
 
 
